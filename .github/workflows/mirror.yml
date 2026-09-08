@@ -13,18 +13,6 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
-      - name: Debug secret length
-        env:
-          GL_TOKEN: ${{ secrets.GITLAB_TOKEN }}
-        run: |
-          echo "GITLAB_TOKEN length: ${#GL_TOKEN}"
-
-      - name: Test token directly against GitLab
-        run: |
-          curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" \
-            -H "PRIVATE-TOKEN: ${{ secrets.GITLAB_TOKEN }}" \
-            "https://codevault.cyntexa.com/api/v4/projects/bhanupriyapanwar%2Fgithub-to-gitlab"
-
       - name: Mirror selected branch to GitLab (full history)
         run: |
           echo "Mirroring branch: ${{ github.event.inputs.branch }}"

@@ -1,0 +1,21 @@
+name: Mirror Selected Branch to GitLab
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to mirror to GitLab'
+        required: true
+        default: 'main'
+        type: string
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mirror selected branch to GitLab (full history)
+        run: |
+          echo "Mirroring branch: ${{ github.event.inputs.branch }}"
+          git clone --branch "${{ github.event.inputs.branch }}" --single-branch https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git repo-mirror
+          cd repo-mirror
+          git push https://oauth2:${{ secrets.GITLAB_TOKEN }}@codevault.cyntexa.com/bhanupriyapanwar/github-to-gitlab.git "${{ github.event.inputs.branch }}" --force

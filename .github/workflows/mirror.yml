@@ -15,9 +15,9 @@ jobs:
     steps:
       - name: Debug secret length
         env:
-          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          GL_TOKEN: ${{ secrets.GITLAB_TOKEN }}
         run: |
-          echo "Token length: ${#GITLAB_TOKEN}"
+          echo "GITLAB_TOKEN length: ${#GL_TOKEN}"
 
       - name: Mirror selected branch to GitLab (full history)
         run: |

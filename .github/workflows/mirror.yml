@@ -13,6 +13,12 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug secret length
+        env:
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+        run: |
+          echo "Token length: ${#GITLAB_TOKEN}"
+
       - name: Mirror selected branch to GitLab (full history)
         run: |
           echo "Mirroring branch: ${{ github.event.inputs.branch }}"
